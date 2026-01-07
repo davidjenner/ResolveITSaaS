@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Screen Sheet + Typeform Popup</title>
+
+  <style>
+    /* Remove margins and make iframe full screen */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Full-screen Google Sheet */
+    #sheet-frame {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+
+    /* Popup overlay */
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.75);
+      display: none; /* Hidden by default */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    /* Popup container */
+    #popup-content {
+      width: 90vw;
+      height: 90vh;
+      background: white;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Close button */
+    #close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #000;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    /* Button to open popup */
+    #open-popup-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 14px 20px;
+      background: #0078ff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 9000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Full-screen Google Sheet -->
+  <iframe
+    id="sheet-frame"
+    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQgyWE6V0t2Rs2tdnG42O7JzP30JvpBvW5tZvPTkjJ6i2aoc-dthq4frKe8gVvgytBNrKM_IuFr0lbQ/pubhtml?gid=1000290631&single=true&widget=true&headers=false">
+  </iframe>
+
+  <!-- Button to open Typeform popup -->
+  <div id="open-popup-btn">Open Form</div>
+
+  <!-- Popup overlay -->
+  <div id="popup-overlay">
+    <div id="popup-content">
+      <div id="close-btn">Close</div>
+
+      <!-- Typeform embed -->
+      <div data-tf-live="01KECYY1SYD8AH1PVFTDR64276" style="width:100%; height:100%;"></div>
+      <script src="//embed.typeform.com/next/embed.js"></script>
+    </div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById("open-popup-btn");
+    const overlay = document.getElementById("popup-overlay");
+    const closeBtn = document.getElementById("close-btn");
+
+    openBtn.onclick = () => overlay.style.display = "flex";
+    closeBtn.onclick = () => overlay.style.display = "none";
+  </script>
+
+</body>
+</html>
