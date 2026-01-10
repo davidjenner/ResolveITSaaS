@@ -5,107 +5,92 @@
   <title>IT Support Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fa;
-    }
-
-    /* Navbar */
-    .navbar {
-      display: flex;
-      background-color: #1f2937;
-      padding: 0 20px;
-      height: 60px;
-      align-items: center;
-    }
-
-    .nav-item {
-      color: #e5e7eb;
-      margin-right: 20px;
-      cursor: pointer;
-      padding: 10px 15px;
-      border-radius: 6px;
-      font-weight: 500;
-    }
-
-    .nav-item:hover {
-      background-color: #374151;
-    }
-
-    .nav-item.active {
-      background-color: #2563eb;
-      color: #ffffff;
-    }
-
-    /* Content */
-    .content {
-      padding: 20px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 533px;
-      border: 1px solid #ccc;
-      background: transparent;
-    }
-  </style>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="h-screen flex flex-col bg-gray-100">
 
-  <div class="navbar">
-    <div id="submitTab" class="nav-item active" onclick="showSubmit()">
-      Submit Ticket
-    </div>
-    <div id="viewTab" class="nav-item" onclick="showView()">
-      View Tickets
-    </div>
-  </div>
+  <!-- Navbar -->
+  <nav class="bg-slate-800 text-white px-6 h-14 flex items-center shadow-md">
+    <div class="flex space-x-2">
+      <button
+        id="submitTab"
+        onclick="showSubmit()"
+        class="px-4 py-2 rounded-md text-sm font-medium bg-blue-600"
+      >
+        Submit Ticket
+      </button>
 
-  <div class="content">
-    <div id="iframeContainer">
-      <!-- Default: Submit Ticket -->
+      <button
+        id="viewTab"
+        onclick="showView()"
+        class="px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-700"
+      >
+        View Tickets
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col">
+
+    <!-- Iframe Container -->
+    <div id="iframeContainer" class="flex-1">
       <iframe
-        class="airtable-embed"
+        class="w-full h-full border-0"
         src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
-        frameborder="0"
-        onmousewheel="">
-      </iframe>
+      ></iframe>
     </div>
-  </div>
+
+    <!-- Submit Button (only visible on submit page) -->
+    <div
+      id="submittedButton"
+      class="bg-white border-t p-4 flex justify-end"
+    >
+      <button
+        onclick="showView()"
+        class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-md shadow"
+      >
+        Ticket Submitted
+      </button>
+    </div>
+
+  </main>
 
   <script>
     const submitTab = document.getElementById("submitTab");
     const viewTab = document.getElementById("viewTab");
     const iframeContainer = document.getElementById("iframeContainer");
+    const submittedButton = document.getElementById("submittedButton");
+
+    function setActiveTab(active, inactive) {
+      active.classList.add("bg-blue-600");
+      inactive.classList.remove("bg-blue-600");
+      inactive.classList.add("hover:bg-slate-700");
+    }
 
     function showSubmit() {
-      submitTab.classList.add("active");
-      viewTab.classList.remove("active");
+      setActiveTab(submitTab, viewTab);
+      submittedButton.classList.remove("hidden");
 
       iframeContainer.innerHTML = `
         <iframe
-          class="airtable-embed"
+          class="w-full h-full border-0"
           src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
-          frameborder="0"
-          onmousewheel="">
-        </iframe>
+        ></iframe>
       `;
     }
 
     function showView() {
-      viewTab.classList.add("active");
-      submitTab.classList.remove("active");
+      setActiveTab(viewTab, submitTab);
+      submittedButton.classList.add("hidden");
 
       iframeContainer.innerHTML = `
         <iframe
-          class="airtable-embed"
+          class="w-full h-full border-0"
           src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo"
-          frameborder="0"
-          onmousewheel="">
-        </iframe>
+        ></iframe>
       `;
     }
   </script>
