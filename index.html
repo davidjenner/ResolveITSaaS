@@ -2,215 +2,166 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>IT Support Portal</title>
+  <title>AI IT Support Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="h-screen flex flex-col bg-gray-100">
+<body class="bg-slate-950 text-slate-100 antialiased">
 
-  <!-- Navbar -->
-  <nav class="bg-slate-800 text-white px-6 h-14 flex items-center shadow-md z-20">
-    <div class="flex space-x-3 relative">
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold">
+          AI
+        </div>
+        <span class="font-semibold text-lg">IT Support</span>
+      </div>
 
-      <!-- SUBMIT TICKET (Primary + Backup) -->
-      <div class="relative flex">
-        <!-- Primary -->
-        <button
-          id="submitTab"
-          onclick="showPrimarySubmit()"
-          class="px-4 py-2 rounded-l-md text-sm font-medium bg-blue-600 hover:bg-blue-700"
-        >
+      <nav class="hidden md:flex space-x-8 text-sm text-slate-300">
+        <a href="#" class="hover:text-white">Home</a>
+        <a href="#" class="hover:text-white">Status</a>
+        <a href="#" class="hover:text-white">Docs</a>
+      </nav>
+
+      <div class="flex space-x-3">
+        <a href="submit.html" class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-medium">
           Submit Ticket
-        </button>
-
-        <!-- Dropdown Arrow -->
-        <button
-          onclick="toggleSubmitMenu()"
-          class="px-2 rounded-r-md bg-blue-600 hover:bg-blue-700"
-        >
-          ▼
-        </button>
-
-        <!-- Submit Backup Menu -->
-        <div
-          id="submitMenu"
-          class="absolute left-0 mt-12 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
-        >
-          <button
-            onclick="showSubmitBackup()"
-            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-          >
-            Backup (Google Forms)
-          </button>
-        </div>
-      </div>
-
-      <!-- VIEW TICKETS (Primary + Backup) -->
-      <div class="relative flex">
-        <!-- Primary -->
-        <button
-          id="viewTab"
-          onclick="showViewPrimary()"
-          class="px-4 py-2 rounded-l-md text-sm font-medium hover:bg-slate-700"
-        >
+        </a>
+        <a href="view.html" class="px-4 py-2 rounded-md border border-slate-700 hover:bg-slate-800 text-sm">
           View Tickets
-        </button>
+        </a>
+      </div>
+    </div>
+  </header>
 
-        <!-- Dropdown Arrow -->
-        <button
-          onclick="toggleViewMenu()"
-          class="px-2 rounded-r-md hover:bg-slate-700"
-        >
-          ▼
-        </button>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-16 items-center">
+      
+      <div>
+        <h1 class="text-4xl lg:text-6xl font-bold leading-tight">
+          AI-Powered<br />
+          <span class="text-blue-500">IT Support</span><br />
+          That Actually Scales
+        </h1>
 
-        <!-- View Backup Menu -->
-        <div
-          id="viewMenu"
-          class="absolute left-0 mt-12 w-64 bg-white text-gray-800 rounded-md shadow-lg hidden"
-        >
-          <button
-            onclick="showViewBackup()"
-            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
-          >
-            Backup (Google Sheets)
-          </button>
+        <p class="mt-6 text-slate-300 max-w-xl">
+          Submit issues, track progress, and resolve IT problems faster using AI-assisted triage and automated workflows.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="submit.html"
+            class="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 font-medium shadow-lg shadow-blue-600/30">
+            Submit a Ticket
+          </a>
+
+          <a href="view.html"
+            class="px-6 py-3 rounded-md border border-slate-700 hover:bg-slate-800 font-medium">
+            View My Tickets
+          </a>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="relative">
+        <div class="absolute -inset-4 bg-blue-600/20 blur-3xl rounded-full"></div>
+        <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+          <p class="text-sm text-slate-400 mb-2">AI Ticket Summary</p>
+          <div class="space-y-3">
+            <div class="h-4 bg-slate-800 rounded w-3/4"></div>
+            <div class="h-4 bg-slate-800 rounded w-full"></div>
+            <div class="h-4 bg-slate-800 rounded w-2/3"></div>
+          </div>
         </div>
       </div>
 
     </div>
-  </nav>
+  </section>
 
-  <!-- Main Content -->
-  <main class="flex-1 flex flex-col overflow-hidden relative">
+  <!-- FEATURES -->
+  <section class="border-t border-slate-800 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-6 py-24">
+      <h2 class="text-3xl font-bold text-center mb-14">
+        Built for Modern IT Teams
+      </h2>
 
-    <!-- Embed Container -->
-    <div id="iframeContainer" class="flex-1">
-      <iframe
-        class="w-full h-full border-0"
-        src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
-      ></iframe>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+          <h3 class="font-semibold mb-2">AI-Assisted Triage</h3>
+          <p class="text-sm text-slate-400">
+            Automatically categorises issues and routes them to the right queue.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+          <h3 class="font-semibold mb-2">Instant Visibility</h3>
+          <p class="text-sm text-slate-400">
+            Users can track ticket status without emailing IT for updates.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+          <h3 class="font-semibold mb-2">Fail-Safe Backups</h3>
+          <p class="text-sm text-slate-400">
+            Airtable primary with Google Forms & Sheets as automatic backups.
+          </p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Submit Footer Button -->
-    <div
-      id="submitFooter"
-      class="bg-white border-t p-4 flex justify-end"
-    >
-      <button
-        onclick="delayedShowView()"
-        class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-md shadow"
-      >
-        Ticket Submitted → View Tickets
-      </button>
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="max-w-7xl mx-auto px-6 py-24">
+      <h2 class="text-3xl font-bold text-center mb-14">
+        How It Works
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-10 text-center">
+        <div>
+          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
+            1
+          </div>
+          <h3 class="font-semibold mb-2">Submit</h3>
+          <p class="text-sm text-slate-400">
+            Describe the issue once — AI handles the categorisation.
+          </p>
+        </div>
+
+        <div>
+          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
+            2
+          </div>
+          <h3 class="font-semibold mb-2">Process</h3>
+          <p class="text-sm text-slate-400">
+            Tickets flow into structured queues automatically.
+          </p>
+        </div>
+
+        <div>
+          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
+            3
+          </div>
+          <h3 class="font-semibold mb-2">Resolve</h3>
+          <p class="text-sm text-slate-400">
+            Faster fixes with less manual admin.
+          </p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Loading Overlay -->
-    <div
-      id="loadingOverlay"
-      class="absolute inset-0 bg-white/90 flex flex-col items-center justify-center hidden z-10"
-    >
-      <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-6"></div>
-      <p class="text-gray-700 text-lg font-medium">
-        Submitting ticket and loading your requests…
-      </p>
-      <p class="text-gray-500 text-sm mt-2">
-        This may take about 30 seconds
-      </p>
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between text-sm text-slate-400">
+      <p>© 2026 AI IT Support</p>
+      <p>Built for reliability • Designed for scale</p>
     </div>
-
-  </main>
-
-  <script>
-    const iframeContainer = document.getElementById("iframeContainer");
-    const submitFooter = document.getElementById("submitFooter");
-    const loadingOverlay = document.getElementById("loadingOverlay");
-    const submitMenu = document.getElementById("submitMenu");
-    const viewMenu = document.getElementById("viewMenu");
-
-    function toggleSubmitMenu() {
-      submitMenu.classList.toggle("hidden");
-      viewMenu.classList.add("hidden");
-    }
-
-    function toggleViewMenu() {
-      viewMenu.classList.toggle("hidden");
-      submitMenu.classList.add("hidden");
-    }
-
-    function closeMenus() {
-      submitMenu.classList.add("hidden");
-      viewMenu.classList.add("hidden");
-    }
-
-    /* SUBMIT */
-
-    function showPrimarySubmit() {
-      closeMenus();
-      submitFooter.classList.remove("hidden");
-
-      iframeContainer.innerHTML = `
-        <iframe class="w-full h-full border-0"
-          src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form">
-        </iframe>
-      `;
-    }
-
-    function showSubmitBackup() {
-      closeMenus();
-      submitFooter.classList.remove("hidden");
-
-      iframeContainer.innerHTML = `
-        <iframe class="w-full h-full border-0"
-          src="https://forms.gle/h29MY3qppjVhSfPp7">
-        </iframe>
-      `;
-    }
-
-    /* VIEW */
-
-    function showViewPrimary() {
-      closeMenus();
-      submitFooter.classList.add("hidden");
-
-      iframeContainer.innerHTML = `
-        <iframe class="w-full h-full border-0"
-          src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo?layout=card">
-        </iframe>
-      `;
-    }
-
-    function showViewBackup() {
-      closeMenus();
-      submitFooter.classList.add("hidden");
-
-      iframeContainer.innerHTML = `
-        <iframe class="w-full h-full border-0"
-          src="https://docs.google.com/spreadsheets/d/1tNFlodzuH8xMUJ8vhZYUBGzy9eb-dq2DesmsYzCa5HA/edit?usp=sharing">
-        </iframe>
-      `;
-    }
-
-    function delayedShowView() {
-      loadingOverlay.classList.remove("hidden");
-      submitFooter.querySelector("button").disabled = true;
-
-      setTimeout(() => {
-        submitFooter.querySelector("button").disabled = false;
-        showViewPrimary();
-        loadingOverlay.classList.add("hidden");
-      }, 30000);
-    }
-
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest("nav")) {
-        closeMenus();
-      }
-    });
-  </script>
+  </footer>
 
 </body>
 </html>
