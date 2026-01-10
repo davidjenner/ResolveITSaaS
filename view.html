@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>View Tickets | AI IT Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen flex flex-col bg-gray-100">
+
+  <!-- NAVBAR -->
+  <nav class="bg-slate-800 text-white px-6 h-14 flex items-center justify-between shadow-md">
+    <span class="font-semibold">AI IT Support</span>
+
+    <div class="flex space-x-3">
+      <a href="submit.html" class="px-4 py-2 rounded-md text-sm hover:bg-slate-700">
+        Submit Ticket
+      </a>
+
+      <!-- View Tickets Dropdown -->
+      <div class="relative group">
+        <div class="flex">
+          <button
+            onclick="loadAirtable()"
+            class="px-4 py-2 bg-blue-600 rounded-l-md text-sm font-medium"
+          >
+            View Tickets
+          </button>
+          <button class="px-2 bg-blue-700 rounded-r-md">
+            ▼
+          </button>
+        </div>
+
+        <div class="absolute hidden group-hover:block bg-white text-gray-800 mt-1 rounded shadow w-56 z-20">
+          <button onclick="loadSheets()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            Backup – Google Sheets
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="flex-1 overflow-hidden">
+
+    <div id="content" class="h-full">
+      <iframe
+        class="w-full h-full border-0"
+        src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo?layout=card"
+      ></iframe>
+    </div>
+
+  </main>
+
+  <script>
+    const content = document.getElementById("content");
+
+    function loadAirtable() {
+      content.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo?layout=card">
+        </iframe>
+      `;
+    }
+
+    function loadSheets() {
+      content.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://docs.google.com/spreadsheets/d/1tNFlodzuH8xMUJ8vhZYUBGzy9eb-dq2DesmsYzCa5HA/edit?usp=sharing">
+        </iframe>
+      `;
+    }
+  </script>
+
+</body>
+</html>
