@@ -35,39 +35,47 @@
           <button onclick="showPrimarySubmit()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
             Primary Form (Airtable)
           </button>
-          <button onclick="showBackup1()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+          <!-- <button onclick="showBackup1()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
             Backup 1 (Typeform)
-          </button>
+          </button> -->
           <button onclick="showBackup2()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Backup 2 (Google Form)
+            Backup
           </button>
         </div>
       </div>
 
-      <!-- View Tickets Dropdown -->
-      <div class="relative">
+      <!-- View Tickets (Primary on click, dropdown for backup) -->
+      <div class="relative flex">
+
+        <!-- Primary action -->
         <button
           id="viewTab"
-          onclick="toggleViewMenu()"
-          class="px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-700 flex items-center gap-1"
+          onclick="showViewPrimary()"
+          class="px-4 py-2 rounded-l-md text-sm font-medium hover:bg-slate-700"
         >
           View Tickets
+        </button>
+
+        <!-- Dropdown toggle -->
+        <button
+          onclick="toggleViewMenu()"
+          class="px-2 rounded-r-md hover:bg-slate-700"
+        >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
 
+        <!-- Dropdown -->
         <div
           id="viewMenu"
-          class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
+          class="absolute right-0 mt-12 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
         >
-          <!-- <button onclick="showViewPrimary()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Primary View (Airtable)
-          </button> -->
           <button onclick="showViewBackup()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
             Backup View (Google Sheets)
           </button>
         </div>
+
       </div>
 
     </div>
@@ -143,7 +151,7 @@
       viewMenu.classList.add("hidden");
     }
 
-    /* SUBMIT VIEWS */
+    /* SUBMIT */
 
     function showPrimarySubmit() {
       closeMenus();
@@ -182,7 +190,7 @@
       `;
     }
 
-    /* VIEW TICKETS */
+    /* VIEW */
 
     function showViewPrimary() {
       closeMenus();
