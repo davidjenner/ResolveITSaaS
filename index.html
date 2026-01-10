@@ -2,110 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>IT Support Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT Ticket System</title>
 
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
     }
 
-    /* Full-screen Airtable */
-    #airtable {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-    }
-
-    /* Floating button */
-    #openFormBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #0078ff;
-      color: white;
-      padding: 14px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      z-index: 9000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    /* Popup overlay */
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.75);
-      display: none;
-      justify-content: center;
+    /* Navbar */
+    .navbar {
+      display: flex;
+      background-color: #1f2937;
+      padding: 0 20px;
+      height: 60px;
       align-items: center;
-      z-index: 9999;
     }
 
-    /* Popup container */
-    #popup {
-      width: 90vw;
-      height: 90vh;
-      background: white;
-      border-radius: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Close button */
-    #closeBtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: #000;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 5px;
+    .nav-item {
+      color: #e5e7eb;
+      margin-right: 20px;
       cursor: pointer;
-      z-index: 10000;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .nav-item:hover {
+      background-color: #374151;
+    }
+
+    .nav-item.active {
+      background-color: #2563eb;
+      color: #ffffff;
+    }
+
+    /* Content */
+    .content {
+      padding: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 533px;
+      border: 1px solid #ccc;
+      background: transparent;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Full-screen Airtable -->
-  <iframe
-    id="airtable"
-    class="airtable-embed"
-    src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo"
-    frameborder="0"
-    style="background: transparent; border: none;">
-  </iframe>
+  <div class="navbar">
+    <div id="submitTab" class="nav-item active" onclick="showSubmit()">
+      Submit Ticket
+    </div>
+    <div id="viewTab" class="nav-item" onclick="showView()">
+      View Tickets
+    </div>
+  </div>
 
-  <!-- Button to open Typeform -->
-  <div id="openFormBtn">Submit Ticket</div>
-
-  <!-- Popup overlay -->
-  <div id="overlay">
-    <div id="popup">
-      <div id="closeBtn">Close</div>
-
-      <!-- Typeform embed -->
-      <div data-tf-live="01KECYY1SYD8AH1PVFTDR64276"></div><script src="//embed.typeform.com/next/embed.js"></script>
+  <div class="content">
+    <div id="iframeContainer">
+      <!-- Default: Submit Ticket -->
+      <iframe
+        class="airtable-embed"
+        src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
+        frameborder="0"
+        onmousewheel="">
+      </iframe>
     </div>
   </div>
 
   <script>
-    const openBtn = document.getElementById("openFormBtn");
-    const overlay = document.getElementById("overlay");
-    const closeBtn = document.getElementById("closeBtn");
+    const submitTab = document.getElementById("submitTab");
+    const viewTab = document.getElementById("viewTab");
+    const iframeContainer = document.getElementById("iframeContainer");
 
-    openBtn.onclick = () => overlay.style.display = "flex";
-    closeBtn.onclick = () => overlay.style.display = "none";
+    function showSubmit() {
+      submitTab.classList.add("active");
+      viewTab.classList.remove("active");
+
+      iframeContainer.innerHTML = `
+        <iframe
+          class="airtable-embed"
+          src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
+          frameborder="0"
+          onmousewheel="">
+        </iframe>
+      `;
+    }
+
+    function showView() {
+      viewTab.classList.add("active");
+      submitTab.classList.remove("active");
+
+      iframeContainer.innerHTML = `
+        <iframe
+          class="airtable-embed"
+          src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo"
+          frameborder="0"
+          onmousewheel="">
+        </iframe>
+      `;
+    }
   </script>
 
 </body>
