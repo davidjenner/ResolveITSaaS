@@ -13,41 +13,44 @@
 
   <!-- Navbar -->
   <nav class="bg-slate-800 text-white px-6 h-14 flex items-center shadow-md z-20">
-    <div class="flex space-x-2 relative">
+    <div class="flex space-x-3 relative">
 
-      <!-- Submit Ticket Dropdown -->
-      <div class="relative">
+      <!-- SUBMIT TICKET (Primary + Backup) -->
+      <div class="relative flex">
+        <!-- Primary -->
         <button
           id="submitTab"
-          onclick="toggleSubmitMenu()"
-          class="px-4 py-2 rounded-md text-sm font-medium bg-blue-600 flex items-center gap-1"
+          onclick="showPrimarySubmit()"
+          class="px-4 py-2 rounded-l-md text-sm font-medium bg-blue-600 hover:bg-blue-700"
         >
           Submit Ticket
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
         </button>
 
+        <!-- Dropdown Arrow -->
+        <button
+          onclick="toggleSubmitMenu()"
+          class="px-2 rounded-r-md bg-blue-600 hover:bg-blue-700"
+        >
+          ▼
+        </button>
+
+        <!-- Submit Backup Menu -->
         <div
           id="submitMenu"
-          class="absolute left-0 mt-2 w-52 bg-white text-gray-800 rounded-md shadow-lg hidden"
+          class="absolute left-0 mt-12 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
         >
-          <button onclick="showPrimarySubmit()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Primary Form (Airtable)
-          </button>
-          <!-- <button onclick="showBackup1()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Backup 1 (Typeform)
-          </button> -->
-          <button onclick="showBackup2()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Backup
+          <button
+            onclick="showSubmitBackup()"
+            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Backup (Google Forms)
           </button>
         </div>
       </div>
 
-      <!-- View Tickets (Primary on click, dropdown for backup) -->
+      <!-- VIEW TICKETS (Primary + Backup) -->
       <div class="relative flex">
-
-        <!-- Primary action -->
+        <!-- Primary -->
         <button
           id="viewTab"
           onclick="showViewPrimary()"
@@ -56,26 +59,26 @@
           View Tickets
         </button>
 
-        <!-- Dropdown toggle -->
+        <!-- Dropdown Arrow -->
         <button
           onclick="toggleViewMenu()"
           class="px-2 rounded-r-md hover:bg-slate-700"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+          ▼
         </button>
 
-        <!-- Dropdown -->
+        <!-- View Backup Menu -->
         <div
           id="viewMenu"
-          class="absolute right-0 mt-12 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
+          class="absolute left-0 mt-12 w-64 bg-white text-gray-800 rounded-md shadow-lg hidden"
         >
-          <button onclick="showViewBackup()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Backup View (Google Sheets)
+          <button
+            onclick="showViewBackup()"
+            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Backup (Google Sheets)
           </button>
         </div>
-
       </div>
 
     </div>
@@ -122,19 +125,11 @@
   </main>
 
   <script>
-    const submitTab = document.getElementById("submitTab");
-    const viewTab = document.getElementById("viewTab");
     const iframeContainer = document.getElementById("iframeContainer");
     const submitFooter = document.getElementById("submitFooter");
     const loadingOverlay = document.getElementById("loadingOverlay");
     const submitMenu = document.getElementById("submitMenu");
     const viewMenu = document.getElementById("viewMenu");
-
-    function activateTab(active, inactive) {
-      active.classList.add("bg-blue-600");
-      inactive.classList.remove("bg-blue-600");
-      inactive.classList.add("hover:bg-slate-700");
-    }
 
     function toggleSubmitMenu() {
       submitMenu.classList.toggle("hidden");
@@ -155,7 +150,6 @@
 
     function showPrimarySubmit() {
       closeMenus();
-      activateTab(submitTab, viewTab);
       submitFooter.classList.remove("hidden");
 
       iframeContainer.innerHTML = `
@@ -165,22 +159,8 @@
       `;
     }
 
-    function showBackup1() {
+    function showSubmitBackup() {
       closeMenus();
-      activateTab(submitTab, viewTab);
-      submitFooter.classList.remove("hidden");
-
-      iframeContainer.innerHTML = `
-        <div class="w-full h-full">
-          <div data-tf-live="01KECYY1SYD8AH1PVFTDR64276" class="w-full h-full"></div>
-          <script src="//embed.typeform.com/next/embed.js"><\/script>
-        </div>
-      `;
-    }
-
-    function showBackup2() {
-      closeMenus();
-      activateTab(submitTab, viewTab);
       submitFooter.classList.remove("hidden");
 
       iframeContainer.innerHTML = `
@@ -194,7 +174,6 @@
 
     function showViewPrimary() {
       closeMenus();
-      activateTab(viewTab, submitTab);
       submitFooter.classList.add("hidden");
 
       iframeContainer.innerHTML = `
@@ -206,7 +185,6 @@
 
     function showViewBackup() {
       closeMenus();
-      activateTab(viewTab, submitTab);
       submitFooter.classList.add("hidden");
 
       iframeContainer.innerHTML = `
@@ -228,7 +206,7 @@
     }
 
     document.addEventListener("click", (e) => {
-      if (!submitTab.contains(e.target) && !viewTab.contains(e.target)) {
+      if (!e.target.closest("nav")) {
         closeMenus();
       }
     });
