@@ -28,38 +28,55 @@
           </svg>
         </button>
 
-        <!-- Dropdown -->
         <div
           id="submitMenu"
-          class="absolute left-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg hidden"
+          class="absolute left-0 mt-2 w-52 bg-white text-gray-800 rounded-md shadow-lg hidden"
         >
           <button onclick="showPrimarySubmit()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Primary Form
+            Primary Form (Airtable)
           </button>
-          <!-- <button onclick="showBackup1()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+          <button onclick="showBackup1()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
             Backup 1 (Typeform)
-          </button> -->
+          </button>
           <button onclick="showBackup2()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Backup (Google Form)
+            Backup 2 (Google Form)
           </button>
         </div>
       </div>
 
-      <!-- View Tickets -->
-      <button
-        id="viewTab"
-        onclick="showView()"
-        class="px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-700"
-      >
-        View Tickets
-      </button>
+      <!-- View Tickets Dropdown -->
+      <div class="relative">
+        <button
+          id="viewTab"
+          onclick="toggleViewMenu()"
+          class="px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-700 flex items-center gap-1"
+        >
+          View Tickets
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          id="viewMenu"
+          class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
+        >
+          <!-- <button onclick="showViewPrimary()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            Primary View (Airtable)
+          </button> -->
+          <button onclick="showViewBackup()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            Backup View (Google Sheets)
+          </button>
+        </div>
+      </div>
+
     </div>
   </nav>
 
   <!-- Main Content -->
   <main class="flex-1 flex flex-col overflow-hidden relative">
 
-    <!-- Iframe / Embed Container -->
+    <!-- Embed Container -->
     <div id="iframeContainer" class="flex-1">
       <iframe
         class="w-full h-full border-0"
@@ -103,6 +120,7 @@
     const submitFooter = document.getElementById("submitFooter");
     const loadingOverlay = document.getElementById("loadingOverlay");
     const submitMenu = document.getElementById("submitMenu");
+    const viewMenu = document.getElementById("viewMenu");
 
     function activateTab(active, inactive) {
       active.classList.add("bg-blue-600");
@@ -112,14 +130,23 @@
 
     function toggleSubmitMenu() {
       submitMenu.classList.toggle("hidden");
+      viewMenu.classList.add("hidden");
     }
 
-    function closeSubmitMenu() {
+    function toggleViewMenu() {
+      viewMenu.classList.toggle("hidden");
       submitMenu.classList.add("hidden");
     }
 
+    function closeMenus() {
+      submitMenu.classList.add("hidden");
+      viewMenu.classList.add("hidden");
+    }
+
+    /* SUBMIT VIEWS */
+
     function showPrimarySubmit() {
-      closeSubmitMenu();
+      closeMenus();
       activateTab(submitTab, viewTab);
       submitFooter.classList.remove("hidden");
 
@@ -131,40 +158,52 @@
     }
 
     function showBackup1() {
-      closeSubmitMenu();
+      closeMenus();
+      activateTab(submitTab, viewTab);
+      submitFooter.classList.remove("hidden");
+
+      iframeContainer.innerHTML = `
+        <div class="w-full h-full">
+          <div data-tf-live="01KECYY1SYD8AH1PVFTDR64276" class="w-full h-full"></div>
+          <script src="//embed.typeform.com/next/embed.js"><\/script>
+        </div>
+      `;
+    }
+
+    function showBackup2() {
+      closeMenus();
       activateTab(submitTab, viewTab);
       submitFooter.classList.remove("hidden");
 
       iframeContainer.innerHTML = `
         <iframe class="w-full h-full border-0"
-          src="https://form.typeform.com/to/gK6h412E>
-        </iframe>
-      `;
-    }
-
-    function showBackup2() {
-      closeSubmitMenu();
-      activateTab(submitTab, viewTab);
-      submitFooter.classList.remove("hidden");
-
-      iframeContainer.innerHTML = `
-        <iframe
-          class="w-full h-full border-0"
           src="https://forms.gle/h29MY3qppjVhSfPp7">
         </iframe>
       `;
     }
 
-    function showView() {
+    /* VIEW TICKETS */
+
+    function showViewPrimary() {
+      closeMenus();
       activateTab(viewTab, submitTab);
       submitFooter.classList.add("hidden");
-      loadingOverlay.classList.add("hidden");
-      closeSubmitMenu();
 
       iframeContainer.innerHTML = `
-        <iframe
-          class="w-full h-full border-0"
+        <iframe class="w-full h-full border-0"
           src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo?layout=card">
+        </iframe>
+      `;
+    }
+
+    function showViewBackup() {
+      closeMenus();
+      activateTab(viewTab, submitTab);
+      submitFooter.classList.add("hidden");
+
+      iframeContainer.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://docs.google.com/spreadsheets/d/1tNFlodzuH8xMUJ8vhZYUBGzy9eb-dq2DesmsYzCa5HA/edit?usp=sharing">
         </iframe>
       `;
     }
@@ -175,14 +214,14 @@
 
       setTimeout(() => {
         submitFooter.querySelector("button").disabled = false;
-        showView();
+        showViewPrimary();
+        loadingOverlay.classList.add("hidden");
       }, 30000);
     }
 
-    // Close dropdown when clicking elsewhere
     document.addEventListener("click", (e) => {
-      if (!submitTab.contains(e.target)) {
-        closeSubmitMenu();
+      if (!submitTab.contains(e.target) && !viewTab.contains(e.target)) {
+        closeMenus();
       }
     });
   </script>
