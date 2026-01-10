@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IT Support Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen flex flex-col bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-slate-800 text-white px-6 h-14 flex items-center shadow-md z-20">
+    <div class="flex space-x-3 relative">
+
+      <!-- SUBMIT TICKET (Primary + Backup) -->
+      <div class="relative flex">
+        <!-- Primary -->
+        <button
+          id="submitTab"
+          onclick="showPrimarySubmit()"
+          class="px-4 py-2 rounded-l-md text-sm font-medium bg-blue-600 hover:bg-blue-700"
+        >
+          Submit Ticket
+        </button>
+
+        <!-- Dropdown Arrow -->
+        <button
+          onclick="toggleSubmitMenu()"
+          class="px-2 rounded-r-md bg-blue-600 hover:bg-blue-700"
+        >
+          ▼
+        </button>
+
+        <!-- Submit Backup Menu -->
+        <div
+          id="submitMenu"
+          class="absolute left-0 mt-12 w-56 bg-white text-gray-800 rounded-md shadow-lg hidden"
+        >
+          <button
+            onclick="showSubmitBackup()"
+            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Backup (Google Forms)
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW TICKETS (Primary + Backup) -->
+      <div class="relative flex">
+        <!-- Primary -->
+        <button
+          id="viewTab"
+          onclick="showViewPrimary()"
+          class="px-4 py-2 rounded-l-md text-sm font-medium hover:bg-slate-700"
+        >
+          View Tickets
+        </button>
+
+        <!-- Dropdown Arrow -->
+        <button
+          onclick="toggleViewMenu()"
+          class="px-2 rounded-r-md hover:bg-slate-700"
+        >
+          ▼
+        </button>
+
+        <!-- View Backup Menu -->
+        <div
+          id="viewMenu"
+          class="absolute left-0 mt-12 w-64 bg-white text-gray-800 rounded-md shadow-lg hidden"
+        >
+          <button
+            onclick="showViewBackup()"
+            class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+          >
+            Backup (Google Sheets)
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col overflow-hidden relative">
+
+    <!-- Embed Container -->
+    <div id="iframeContainer" class="flex-1">
+      <iframe
+        class="w-full h-full border-0"
+        src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form"
+      ></iframe>
+    </div>
+
+    <!-- Submit Footer Button -->
+    <div
+      id="submitFooter"
+      class="bg-white border-t p-4 flex justify-end"
+    >
+      <button
+        onclick="delayedShowView()"
+        class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-md shadow"
+      >
+        Ticket Submitted → View Tickets
+      </button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div
+      id="loadingOverlay"
+      class="absolute inset-0 bg-white/90 flex flex-col items-center justify-center hidden z-10"
+    >
+      <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-6"></div>
+      <p class="text-gray-700 text-lg font-medium">
+        Submitting ticket and loading your requests…
+      </p>
+      <p class="text-gray-500 text-sm mt-2">
+        This may take about 30 seconds
+      </p>
+    </div>
+
+  </main>
+
+  <script>
+    const iframeContainer = document.getElementById("iframeContainer");
+    const submitFooter = document.getElementById("submitFooter");
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const submitMenu = document.getElementById("submitMenu");
+    const viewMenu = document.getElementById("viewMenu");
+
+    function toggleSubmitMenu() {
+      submitMenu.classList.toggle("hidden");
+      viewMenu.classList.add("hidden");
+    }
+
+    function toggleViewMenu() {
+      viewMenu.classList.toggle("hidden");
+      submitMenu.classList.add("hidden");
+    }
+
+    function closeMenus() {
+      submitMenu.classList.add("hidden");
+      viewMenu.classList.add("hidden");
+    }
+
+    /* SUBMIT */
+
+    function showPrimarySubmit() {
+      closeMenus();
+      submitFooter.classList.remove("hidden");
+
+      iframeContainer.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://airtable.com/embed/appTUwux02si8DyhJ/pag6GChskXBambQTG/form">
+        </iframe>
+      `;
+    }
+
+    function showSubmitBackup() {
+      closeMenus();
+      submitFooter.classList.remove("hidden");
+
+      iframeContainer.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://forms.gle/h29MY3qppjVhSfPp7">
+        </iframe>
+      `;
+    }
+
+    /* VIEW */
+
+    function showViewPrimary() {
+      closeMenus();
+      submitFooter.classList.add("hidden");
+
+      iframeContainer.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://airtable.com/embed/appTUwux02si8DyhJ/shrxyA9Kz3xfpLfbo?layout=card">
+        </iframe>
+      `;
+    }
+
+    function showViewBackup() {
+      closeMenus();
+      submitFooter.classList.add("hidden");
+
+      iframeContainer.innerHTML = `
+        <iframe class="w-full h-full border-0"
+          src="https://docs.google.com/spreadsheets/d/1tNFlodzuH8xMUJ8vhZYUBGzy9eb-dq2DesmsYzCa5HA/edit?usp=sharing">
+        </iframe>
+      `;
+    }
+
+    function delayedShowView() {
+      loadingOverlay.classList.remove("hidden");
+      submitFooter.querySelector("button").disabled = true;
+
+      setTimeout(() => {
+        submitFooter.querySelector("button").disabled = false;
+        showViewPrimary();
+        loadingOverlay.classList.add("hidden");
+      }, 30000);
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("nav")) {
+        closeMenus();
+      }
+    });
+  </script>
+
+</body>
+</html>
