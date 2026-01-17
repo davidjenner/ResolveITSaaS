@@ -1,167 +1,1140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AI IT Support Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolve IT SaaS - Automate IT Support with AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-star {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .dropdown::after {
+            content: ' ▾';
+        }
+
+        .cta-button {
+            background: #c5ff00;
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #000;
+            color: white;
+            padding: 8rem 5% 4rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .hero-image {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .trust-badge {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+
+        .trust-section h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .features-header p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 3rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-label {
+            font-size: 0.75rem;
+            color: #999;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card p {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .feature-link {
+            color: #c5ff00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .feature-link::after {
+            content: ' →';
+        }
+
+        .feature-image {
+            margin-top: 2rem;
+        }
+
+        .feature-image img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .pricing-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: left;
+        }
+
+        .plan-label {
+            font-size: 0.75rem;
+            color: #999;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            color: #999;
+            margin-bottom: 2rem;
+        }
+
+        .plan-button {
+            background: #c5ff00;
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .plan-button:hover {
+            transform: scale(1.02);
+        }
+
+        .plan-note {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .pricing-footer {
+            color: #999;
+            margin-top: 2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #f5f5f5;
+            padding: 6rem 5%;
+        }
+
+        .cta-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cta-image img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .cta-text {
+            padding: 2rem;
+        }
+
+        .cta-label {
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-text h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .cta-text p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-text .cta-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .cta-features {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonials-subtitle {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: left;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333;
+        }
+
+        .author-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-title {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .company-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Blog Section */
+        .blog {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .blog-header {
+            margin-bottom: 3rem;
+        }
+
+        .blog-label {
+            font-size: 0.75rem;
+            color: #999;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .blog h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-description {
+            color: #ccc;
+            font-size: 1.1rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .blog-filters {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid #333;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #c5ff00;
+            color: #000;
+            border-color: #c5ff00;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .blog-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 300px;
+            background: #222;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .blog-tag {
+            font-size: 0.75rem;
+            color: #999;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: white;
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .faq h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-description {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .faq-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #000;
+            color: white;
+            padding: 6rem 5%;
+        }
+
+        .contact-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+        }
+
+        .submit-btn {
+            background: #c5ff00;
+            color: #000;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            width: fit-content;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-text h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .contact-text p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #e5e5e5;
+        }
+
+        .footer-column h4 {
+            font-size: 0.85rem;
+            color: #999;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .trust-section h2,
+            .features-header h2,
+            .pricing h2,
+            .testimonials h2,
+            .blog h2,
+            .faq h2 {
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .testimonials-grid,
+            .blog-grid,
+            .faq-grid,
+            .cta-content,
+            .contact-content,
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
-
-<body class="bg-slate-950 text-slate-100 antialiased">
-
-  <!-- NAVBAR -->
-  <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold">
-          AI
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <div class="logo-star"></div>
+            </div>
+            <span>Resolve IT SaaS</span>
         </div>
-        <span class="font-semibold text-lg">IT Support</span>
-      </div>
+        <ul class="nav-links">
+            <li><a href="#solutions" class="dropdown">Solutions</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#support" class="dropdown">Support</a></li>
+        </ul>
+        <a href="submit.html" class="cta-button">Log a Ticket</a>
+    </nav>
 
-      <nav class="hidden md:flex space-x-8 text-sm text-slate-300">
-        <a href="#" class="hover:text-white">Home</a>
-        <a href="#" class="hover:text-white">Status</a>
-        <a href="#" class="hover:text-white">Docs</a>
-      </nav>
-
-      <div class="flex space-x-3">
-        <a href="submit.html" class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-medium">
-          Submit Ticket
-        </a>
-        <a href="view.html" class="px-4 py-2 rounded-md border border-slate-700 hover:bg-slate-800 text-sm">
-          View Tickets
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-16 items-center">
-      
-      <div>
-        <h1 class="text-4xl lg:text-6xl font-bold leading-tight">
-          AI-Powered<br />
-          <span class="text-blue-500">IT Support</span><br />
-          That Actually Scales
-        </h1>
-
-        <p class="mt-6 text-slate-300 max-w-xl">
-          Submit issues, track progress, and resolve IT problems faster using AI-assisted triage and automated workflows.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="submit.html"
-            class="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 font-medium shadow-lg shadow-blue-600/30">
-            Submit a Ticket
-          </a>
-
-          <a href="view.html"
-            class="px-6 py-3 rounded-md border border-slate-700 hover:bg-slate-800 font-medium">
-            View My Tickets
-          </a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AUTOMATE IT<br>SUPPORT WITH AI</h1>
+            <p class="hero-description">Streamline IT ticketing with AI-driven automation. Log issues, monitor status, and receive instant, intelligent responses for faster resolution and improved efficiency.</p>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80" alt="Team collaboration">
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Visual -->
-      <div class="relative">
-        <div class="absolute -inset-4 bg-blue-600/20 blur-3xl rounded-full"></div>
-        <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
-          <p class="text-sm text-slate-400 mb-2">AI Ticket Summary</p>
-          <div class="space-y-3">
-            <div class="h-4 bg-slate-800 rounded w-3/4"></div>
-            <div class="h-4 bg-slate-800 rounded w-full"></div>
-            <div class="h-4 bg-slate-800 rounded w-2/3"></div>
-          </div>
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <p class="trust-badge">TRUSTED BY 2.5M+ IT TEAMS</p>
+        <h2>Powering seamless<br>IT support</h2>
+        <div class="logo-grid">
+            <div class="logo-item">© LOGO</div>
+            <div class="logo-item">🥚 EGGS</div>
+            <div class="logo-item">THE PAAK</div>
+            <div class="logo-item">◐ IDEA</div>
+            <div class="logo-item">⊙ 360LAB</div>
+            <div class="logo-item">S ECHOES</div>
+            <div class="logo-item">© LOGO</div>
+            <div class="logo-item">S ECHOES</div>
+            <div class="logo-item">🥚 EGGS</div>
+            <div class="logo-item">THE PAAK</div>
+            <div class="logo-item">◐ IDEA</div>
+            <div class="logo-item">⊙ 360LAB</div>
         </div>
-      </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="border-t border-slate-800 bg-slate-900/50">
-    <div class="max-w-7xl mx-auto px-6 py-24">
-      <h2 class="text-3xl font-bold text-center mb-14">
-        Built for Modern IT Teams
-      </h2>
-
-      <div class="grid md:grid-cols-3 gap-10">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <h3 class="font-semibold mb-2">AI-Assisted Triage</h3>
-          <p class="text-sm text-slate-400">
-            Automatically categorises issues and routes them to the right queue.
-          </p>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-header">
+            <h2>AI-powered IT<br>support automation</h2>
+            <p>Enhance IT operations with automated ticket handling, rapid response times, and intelligent agent feedback. Our AI-driven platform streamlines support workflows for efficient, reliable service delivery.</p>
         </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <h3 class="font-semibold mb-2">Instant Visibility</h3>
-          <p class="text-sm text-slate-400">
-            Users can track ticket status without emailing IT for updates.
-          </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <p class="feature-label">AUTOMATED TICKET HANDLING</p>
+                <h3>Efficient triage and smart routing</h3>
+                <p>Classify, assign, and prioritize IT tickets instantly using AI—eliminating manual processes and reducing response times.</p>
+                <a href="#" class="feature-link">Details</a>
+            </div>
+            <div class="feature-card">
+                <p class="feature-label">INSTANT AGENT FEEDBACK</p>
+                <h3>AI delivers solutions in seconds</h3>
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80" alt="AI interface">
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <h3 class="font-semibold mb-2">Fail-Safe Backups</h3>
-          <p class="text-sm text-slate-400">
-            Airtable primary with Google Forms & Sheets as automatic backups.
-          </p>
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <h2>Clear, flexible IT<br>support pricing</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <p class="plan-label">STARTER PLAN</p>
+                <div class="price">$10/mo</div>
+                <p class="plan-description">Best for small IT teams</p>
+                <button class="plan-button">Start now</button>
+                <p class="plan-note">No contracts. Cancel anytime.</p>
+            </div>
+            <div class="pricing-card">
+                <p class="plan-label">PRO PLAN</p>
+                <div class="price">$20/mo</div>
+                <p class="plan-description">For scaling organizations</p>
+                <button class="plan-button">Upgrade</button>
+                <p class="plan-note">No contracts. Cancel anytime.</p>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+        <p class="pricing-footer">24/7 AI-powered support included</p>
+    </section>
 
-  <!-- HOW IT WORKS -->
-  <section>
-    <div class="max-w-7xl mx-auto px-6 py-24">
-      <h2 class="text-3xl font-bold text-center mb-14">
-        How It Works
-      </h2>
-
-      <div class="grid md:grid-cols-3 gap-10 text-center">
-        <div>
-          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-            1
-          </div>
-          <h3 class="font-semibold mb-2">Submit</h3>
-          <p class="text-sm text-slate-400">
-            Describe the issue once — AI handles the categorisation.
-          </p>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <div class="cta-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="IT dashboard">
+            </div>
+            <div class="cta-text">
+                <p class="cta-label">AI-DRIVEN IT TICKET AUTOMATION</p>
+                <h2>Resolve tickets. Accelerate support.</h2>
+                <p>Automate IT requests with intelligent workflows. Get instant, AI-generated solutions and track every ticket in real time—no manual intervention required.</p>
+                <a href="#" class="cta-button">Get started</a>
+                <p class="cta-features">Automated ticket creation, intelligent routing, and personalized AI responses. Log in to monitor ticket status and receive real-time updates from our advanced service desk.</p>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-            2
-          </div>
-          <h3 class="font-semibold mb-2">Process</h3>
-          <p class="text-sm text-slate-400">
-            Tickets flow into structured queues automatically.
-          </p>
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>AI support trusted<br>by industry leaders</h2>
+        <p class="testimonials-subtitle">Discover how businesses accelerate IT ticket resolution and enhance support efficiency with automated AI-driven workflows.</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Resolve IT SaaS enabled us to automate ticket triage, reducing response times and improving overall service quality for our users."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <div class="author-name">Morgan Ellis</div>
+                        <div class="author-title">IT Service Lead</div>
+                    </div>
+                    <div class="company-logo">© LOGO</div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"With the AI Service Desk, our team handles complex issues while routine requests are resolved instantly, streamlining our operations."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <div class="author-name">Alex Rivera</div>
+                        <div class="author-title">Technology Director</div>
+                    </div>
+                    <div class="company-logo">© LOGO</div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <div class="mx-auto mb-4 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-            3
-          </div>
-          <h3 class="font-semibold mb-2">Resolve</h3>
-          <p class="text-sm text-slate-400">
-            Faster fixes with less manual admin.
-          </p>
+    <!-- Blog Section -->
+    <section class="blog">
+        <div class="blog-header">
+            <p class="blog-label">INDUSTRY INSIGHTS & PRODUCT UPDATES</p>
+            <h2>AI service desk:<br>news & resources</h2>
+            <p class="blog-description">Access the latest articles, product updates, and best practices for AI-driven IT ticket automation, workflow optimization, and service desk solutions.</p>
         </div>
-      </div>
-    </div>
-  </section>
+        <div class="blog-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">AI Desk</button>
+            <button class="filter-btn">Automation</button>
+            <button class="filter-btn">Best Practices</button>
+        </div>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&q=80" alt="Mobile IT support">
+                </div>
+                <div class="blog-content">
+                    <p class="blog-tag">AI UPDATE</p>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80" alt="IT professional at work">
+                </div>
+                <div class="blog-content">
+                    <p class="blog-tag">CASE STUDY</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-slate-800 bg-slate-950">
-    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between text-sm text-slate-400">
-      <p>© 2026 AI IT Support</p>
-      <p>Built for reliability • Designed for scale</p>
-    </div>
-  </footer>
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>AI-powered IT<br>support FAQs</h2>
+        <p class="faq-description">Get detailed answers about automated ticketing, real-time tracking, data security, and platform features.</p>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>How does AI handle ticket automation?</h3>
+                <p>The AI system reviews, categorizes, and responds to tickets using your organization's knowledge base and historical data, reducing manual intervention and accelerating resolution times.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I monitor ticket progress live?</h3>
+                <p>Yes. Access your dashboard anytime to view ticket statuses, updates, and AI-generated responses in real time.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is my data protected on this platform?</h3>
+                <p>All ticket data is encrypted and access is restricted to authorized users, ensuring confidentiality and compliance with industry standards.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What IT issues are supported?</h3>
+                <p>Submit requests for hardware, software, network, and access problems. The AI agent is trained to address most standard IT support scenarios.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How fast are responses delivered?</h3>
+                <p>Most tickets receive an AI-generated reply within minutes. Complex cases are escalated to IT specialists for further assistance.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I adjust AI response settings?</h3>
+                <p>Administrators can customize response templates and update the knowledge base to ensure accurate, company-specific solutions.</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">YOUR FULL NAME</label>
+                    <input type="text" id="name" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">WORK EMAIL ADDRESS</label>
+                    <input type="email" id="email" placeholder="email@website.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">DESCRIBE YOUR IT ISSUE</label>
+                    <textarea id="message" placeholder="Type your message..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+            <div class="contact-text">
+                <h2>Contact our IT experts</h2>
+                <p>Submit your IT support request, ask technical questions, or schedule a demo. Our team will respond promptly with accurate solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <div class="logo-star"></div>
+                        </div>
+                        <span>RESOLVE IT SAAS</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">𝕏</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">▶</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#tickets">Tickets</a></li>
+                        <li><a href="#status">Status</a></li>
+                        <li><a href="#agents">Agents</a></li>
+                        <li><a href="#docs">Docs</a></li>
+                        <li><a href="#api">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#press">Press</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#help">Help</a></li>
+                        <li><a href="#guides">Guides</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#terms">Terms</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Resolve IT SaaS. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#pricing">Pricing</a>
+                    <a href="#login">Login</a>
+                    <a href="#signup">Signup</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter buttons functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your submission! Our team will respond shortly.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
